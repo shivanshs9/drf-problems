@@ -1,2 +1,4 @@
-include *.txt *.ini *.cfg *.rst
-recursive-include myapp *.ico *.png *.css *.gif *.jpg *.txt *.js *.html *.xml
+include README.md
+include LICENSE
+global-exclude __pycache__
+global-exclude *.py[co]
