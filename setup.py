@@ -11,6 +11,7 @@ setup(
     packages=['drf_problems'],
     description='Never liked DRF plain old errors? Forget that and accept RFC 7807 - Problem Details!',
     long_description=README,
+    long_description_content_type="text/markdown",
     author='shivanshs9',
     author_email='shivanshs9@gmail.com',
     url='https://github.com/shivanshs9/drf-problems/',

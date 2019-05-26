@@ -1,13 +1,16 @@
-from rest_framework import generics, response, status
+from rest_framework import exceptions, generics, response, status
 
-from drf_problems import PROBLEM_DESCRIPTION_MAP
+from drf_problems import PROBLEM_EXCEPTION_MAP, serializers
 
 
 class ErrorDocumentationView(generics.GenericAPIView):
+    serializer_class = serializers.ErrorDescriptionSerializer
+
     def get(self, request, *args, **kwargs):
         error_code = kwargs['code']
-        data = {
-            'code': error_code,
-            'description': PROBLEM_DESCRIPTION_MAP.get(error_code, 'Not provided.')
-        }
-        return response.Response(data=data, status=status.HTTP_200_OK)
+        try:
+            serializer = serializers.ErrorDescriptionSerializer(
+                PROBLEM_EXCEPTION_MAP[error_code])
+        except KeyError:
+            raise exceptions.NotFound('Given error code not registered.')
+        return response.Response(data=serializer.data, status=status.HTTP_200_OK)

@@ -1,5 +1,7 @@
-from drf_problems import PROBLEM_DESCRIPTION_MAP
+from drf_problems import PROBLEM_CODE_CHOICES, PROBLEM_EXCEPTION_MAP
 
 
 def register_exception(exc_cls):
-    PROBLEM_DESCRIPTION_MAP[exc_cls.default_code] = exc_cls.description
+    code = getattr(exc_cls, 'code', exc_cls.default_code)
+    PROBLEM_EXCEPTION_MAP[code] = exc_cls
+    PROBLEM_CODE_CHOICES.append((code, code))
