@@ -22,16 +22,15 @@ def exception_handler(exc, context):
         logger.exception(exc)
         exc = exceptions.APIException(exc)
 
+    request = context['request']
     response = drf_exception_handler(exc, context)
-
-    response.content_type = 'application/problem+json'
     data = response.data
 
     problem_title = getattr(exc, 'title', exc.default_detail)
     problem_status = response.status_code
     problem_code = getattr(exc, 'code', exc.default_code)
     problem_type = reverse('drf_problems:error-documentation',
-                           kwargs={'code': problem_code}, request=context['request'])
+                           kwargs={'code': problem_code}, request=request)
     if isinstance(data, dict):
         data['title'] = problem_title
         data['status'] = problem_status
@@ -39,6 +38,8 @@ def exception_handler(exc, context):
     else:
         data = dict(errors=response.data, title=problem_title,
                     status=problem_status, type=problem_type)
+    if request.accepted_renderer.format == 'json':
+        response.content_type = 'application/problem+json'
     response.data = data
 
     return response
