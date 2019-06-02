@@ -38,8 +38,11 @@ def exception_handler(exc, context):
     else:
         data = dict(errors=response.data, title=problem_title,
                     status=problem_status, type=problem_type)
-    if request.accepted_renderer.format == 'json':
-        response.content_type = 'application/problem+json'
+    try:
+        if request.accepted_renderer.format == 'json':
+            response.content_type = 'application/problem+json'
+    except AttributeError:
+        pass
     response.data = data
 
     return response
