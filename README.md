@@ -1,7 +1,22 @@
-# DRF Problems [![PyPI version](https://badge.fury.io/py/drf-problems.svg)](https://badge.fury.io/py/drf-problems)
+DRF Problems [![PyPI version](https://badge.fury.io/py/drf-problems.svg)](https://badge.fury.io/py/drf-problems)
+================
 
 ## TL;DR
 This library implements [RFC 7807](https://tools.ietf.org/html/rfc7807) in our favorite Django REST Framework! Or, in layman terms, it introduces "Problem Details" in the HTTP APIs.
+
+Table of Contents
+-----------------
+* [Features](#features)
+* [Pre-Requisites](#pre-requisites)
+* [Installation](#installation)
+* [Usage](#usage)
+    * [With exceptions](#with-exceptions)
+    * [With permissions](#with-permissions)
+    * [With Views](#with-views)
+* [Resources](#resources)
+* [Roadmap](#roadmap)
+* [Contributing](#contributing)
+
 
 ## Features
 - Handles exception to return response with Problem Details model.
@@ -79,8 +94,13 @@ class MinimumVersionRequiredPermission(BaseProblemPermission):
 **Note**: The permissions wouldn't throw the desired exception from the view, until the view is extended from the `drf_problems.mixins.AllowPermissionWithExceptionViewMixin` mixin. So, remember to update your views too, for which permissions are updated!
 
 ## Resources
+- [Official Guide](https://medium.com/@shivanshs9/drf-problems-21f7bb4d4675)
 - [Problem Details for HTTP APIs](https://tools.ietf.org/html/rfc7807)
 - [REST API Error Handling - Problem Details Response](https://blog.restcase.com/rest-api-error-handling-problem-details-response/)
+
+## Roadmap
+- Add tests with some sample views using exceptions and permissions.
+- Document the code better.
 
 ## Contributing
 Contributions are very welcome, of any kind - whether finding new issues or any ideas for enhancements or a pull request.
