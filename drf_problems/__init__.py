@@ -1,5 +1,5 @@
 __title__ = 'DRF Problems'
-__version__ = '0.9.2'
+__version__ = '1.0.0'
 __author__ = 'shivanshs9'
 __license__ = 'MIT'
 

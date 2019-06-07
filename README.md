@@ -11,6 +11,10 @@ This library implements [RFC 7807](https://tools.ietf.org/html/rfc7807) in our f
 - Has problem description endpoint to understand about the problem with the given code.
 - Has sample permissions which checks for minimum API version.
 
+## Pre-Requisites
+- Django >= 2.0 (Tested with 2.2)
+- djangorestframework >= 3.0.0 (Tested with 3.9.0)
+
 ## Installation
 Install the library as you would for any django library.
 
@@ -43,18 +47,19 @@ In your exception class, define `default_code` with the error code string which 
 To set custom title, define `title` with the human-readable summary of the problem type.
 To set description, define `description` with a long paragraph describing the problem.
 
-Finally, make sure to register your exception with `drf_problems.utils.register_exception` function.
+Finally, make sure to register your exception with `drf_problems.utils.register_exception` function or `drf_problems.utils.register` decorator.
 Here's a sample exception class:
 ```python
-from drf_problems.utils import register_exception
+from drf_problems.utils import register_exception, register
 
+@register # Either use this decorator
 class InvalidVersionRequestedException(exceptions.NotAcceptable):
     default_code = 'invalid_version'
     title = 'Invalid API version'
     default_detail = 'Provided API version is invalid.')
     description = 'Malformed or unsupported version string is provided with the request.'
 
-register_exception(InvalidVersionRequestedException)
+register_exception(InvalidVersionRequestedException) # Or this method directly.
 ```
 
 ### With permissions
@@ -76,3 +81,6 @@ class MinimumVersionRequiredPermission(BaseProblemPermission):
 ## Resources
 - [Problem Details for HTTP APIs](https://tools.ietf.org/html/rfc7807)
 - [REST API Error Handling - Problem Details Response](https://blog.restcase.com/rest-api-error-handling-problem-details-response/)
+
+## Contributing
+Contributions are very welcome, of any kind - whether finding new issues or any ideas for enhancements or a pull request.

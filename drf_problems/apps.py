@@ -8,8 +8,6 @@ class DrfProblemsConfig(AppConfig):
     name = 'drf_problems'
 
     def ready(self):
-        from drf_problems import exceptions
-
         register_exception(drf_exceptions.APIException)
         register_exception(drf_exceptions.ValidationError)
         register_exception(drf_exceptions.ParseError)
@@ -21,5 +19,3 @@ class DrfProblemsConfig(AppConfig):
         register_exception(drf_exceptions.NotAcceptable)
         register_exception(drf_exceptions.UnsupportedMediaType)
         register_exception(drf_exceptions.Throttled)
-        register_exception(exceptions.DeprecatedVersionUsedException)
-        register_exception(exceptions.InvalidVersionRequestedException)

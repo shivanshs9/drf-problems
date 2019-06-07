@@ -8,6 +8,8 @@ from rest_framework import exceptions
 from rest_framework.reverse import reverse
 from rest_framework.views import exception_handler as drf_exception_handler
 
+from drf_problems.utils import register
+
 logger = logging.getLogger('drf_problems')
 
 
@@ -48,6 +50,7 @@ def exception_handler(exc, context):
     return response
 
 
+@register
 class InvalidVersionRequestedException(exceptions.NotAcceptable):
     default_code = 'invalid_version'
     default_detail = _('Invalid API version provided.')
@@ -62,6 +65,7 @@ class InvalidVersionRequestedException(exceptions.NotAcceptable):
         super(InvalidVersionRequestedException, self).__init__(detail, code)
 
 
+@register
 class DeprecatedVersionUsedException(exceptions.PermissionDenied):
     default_code = 'deprecated_version'
     default_detail = _('Deprecated API version provided.')
