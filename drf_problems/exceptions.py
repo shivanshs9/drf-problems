@@ -62,7 +62,7 @@ class InvalidVersionRequestedException(exceptions.NotAcceptable):
         if detail is None:
             detail = force_text(self.format_detail).format(
                 request_version=request_version)
-        super(InvalidVersionRequestedException, self).__init__(detail, code)
+        super(type(self), self).__init__(detail, code)
 
 
 @register
@@ -78,4 +78,4 @@ class DeprecatedVersionUsedException(exceptions.PermissionDenied):
         if detail is None:
             detail = force_text(self.format_detail).format(
                 request_version=request_version, min_version=min_version)
-        super(DeprecatedVersionUsedException, self).__init__(detail, code)
+        super(type(self), self).__init__(detail, code)
