@@ -12,5 +12,5 @@ class register(object):
         self.cls = cls
         register_exception(cls)
 
-    def __call__(self):
-        return self.cls
+    def __call__(self, *args, **kwargs):
+        return self.cls(*args, **kwargs)
