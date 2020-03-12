@@ -62,7 +62,7 @@ class InvalidVersionRequestedException(exceptions.NotAcceptable):
         if detail is None:
             detail = force_text(self.format_detail).format(
                 request_version=request_version)
-        super(type(self), self).__init__(detail, code)
+        super().__init__(detail, code)
 
 
 @register
@@ -75,7 +75,13 @@ class DeprecatedVersionUsedException(exceptions.PermissionDenied):
         'API only supports versions above the minimum requirement.')
 
     def __init__(self, request_version, min_version, detail=None, code=None):
+        """Exception thrown when deprecated version of API is used.
+
+        Positional Arguments:
+        request_version -- API version provided by Django Request
+        min_version     -- Minimum API version to use with this API
+        """
         if detail is None:
             detail = force_text(self.format_detail).format(
                 request_version=request_version, min_version=min_version)
-        super(type(self), self).__init__(detail, code)
+        super().__init__(detail, code)

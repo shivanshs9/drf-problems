@@ -6,7 +6,8 @@ from drf_problems import PROBLEM_EXCEPTION_MAP, serializers
 class ErrorDocumentationView(generics.GenericAPIView):
     serializer_class = serializers.ErrorDescriptionSerializer
 
-    def get(self, request, *args, **kwargs):
+    @staticmethod
+    def get(request, *args, **kwargs):
         error_code = kwargs['code']
         try:
             serializer = serializers.ErrorDescriptionSerializer(

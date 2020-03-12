@@ -1,3 +1,8 @@
+"""DRF-Problems library
+
+Handle exceptions smartly!
+"""
+
 __title__ = 'DRF Problems'
 __version__ = '1.0.2'
 __author__ = 'shivanshs9'
