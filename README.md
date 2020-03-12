@@ -1,4 +1,4 @@
-# DRF Problems [![PyPI version](https://badge.fury.io/py/drf-problems.svg)](https://badge.fury.io/py/drf-problems) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1349c9094f0443e686e14d9d444fd2cc)](https://www.codacy.com/manual/shivanshs9/drf-problems?utm_source=github.com&utm_medium=referral&utm_content=shivanshs9/drf-problems&utm_campaign=Badge_Grade) [![Downloads](https://pepy.tech/badge/drf-problems)](https://pepy.tech/project/drf-problems) [![HitCount](https://hits.dwyl.com/shivanshs9/drf-problems.svg)](http://hits.dwyl.com/shivanshs9/drf-problems)
+# DRF Problems [![PyPI version](https://badge.fury.io/py/drf-problems.svg)](https://badge.fury.io/py/drf-problems) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/815f1503809749c3a6b61d129dbb1c1a)](https://www.codacy.com/manual/shivanshs9/drf-problems?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shivanshs9/drf-problems&amp;utm_campaign=Badge_Grade) [![Downloads](https://pepy.tech/badge/drf-problems)](https://pepy.tech/project/drf-problems) [![HitCount](https://hits.dwyl.com/shivanshs9/drf-problems.svg)](http://hits.dwyl.com/shivanshs9/drf-problems)
 
 ## TL;DR
 
