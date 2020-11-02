@@ -8,9 +8,6 @@ def register_exception(exc_cls):
 
 
 class register(object):
-    def __init__(self, cls):
-        self.cls = cls
-        register_exception(cls)
-
-    def __call__(self, *args, **kwargs):
-        return self.cls(*args, **kwargs)
+    def __new__(cls, target_cls):
+        register_exception(target_cls)
+        return target_cls
