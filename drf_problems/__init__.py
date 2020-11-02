@@ -4,7 +4,7 @@ Handle exceptions smartly!
 """
 
 __title__ = 'DRF Problems'
-__version__ = '1.0.3'
+__version__ = '1.0.4'
 __author__ = 'shivanshs9'
 __license__ = 'MIT'
 
