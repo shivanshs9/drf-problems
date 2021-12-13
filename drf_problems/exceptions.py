@@ -2,7 +2,7 @@ import logging
 
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 from rest_framework import exceptions
 from rest_framework.reverse import reverse
@@ -60,7 +60,7 @@ class InvalidVersionRequestedException(exceptions.NotAcceptable):
 
     def __init__(self, request_version, detail=None, code=None):
         if detail is None:
-            detail = force_text(self.format_detail).format(
+            detail = force_str(self.format_detail).format(
                 request_version=request_version)
         super().__init__(detail, code)
 
@@ -82,6 +82,6 @@ class DeprecatedVersionUsedException(exceptions.PermissionDenied):
         min_version     -- Minimum API version to use with this API
         """
         if detail is None:
-            detail = force_text(self.format_detail).format(
+            detail = force_str(self.format_detail).format(
                 request_version=request_version, min_version=min_version)
         super().__init__(detail, code)
