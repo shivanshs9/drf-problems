@@ -86,9 +86,7 @@ class DeprecatedVersionUsedException(exceptions.PermissionDenied):
     format_detail = _(
         'Minimum version supported is "{min_version}", but the request used "{request_version}"'
     )
-    description = _(
-        'API only supports versions above the minimum requirement.'
-    )
+    description = _('API only supports versions above the minimum requirement.')
 
     def __init__(self, request_version, min_version, detail=None, code=None):
         """Exception thrown when deprecated version of API is used.
