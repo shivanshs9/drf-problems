@@ -10,7 +10,7 @@ from rest_framework.views import exception_handler as drf_exception_handler
 
 from drf_problems.utils import register
 
-logger = logging.getLogger('drf_problems')
+logger = logging.getLogger("drf_problems")
 
 
 def exception_handler(exc, context):
@@ -24,25 +24,37 @@ def exception_handler(exc, context):
         logger.exception(exc)
         exc = exceptions.APIException(exc)
 
-    request = context['request']
+    request = context["request"]
     response = drf_exception_handler(exc, context)
     data = response.data
 
-    problem_title = getattr(exc, 'title', exc.default_detail)
+    problem_title = getattr(exc, "title", exc.default_detail)
     problem_status = response.status_code
-    problem_code = getattr(exc, 'code', exc.default_code)
-    problem_type = reverse('drf_problems:error-documentation',
-                           kwargs={'code': problem_code}, request=request)
+    problem_code = getattr(exc, "code", exc.default_code)
+    problem_type = reverse(
+        "drf_problems:error-documentation",
+        kwargs={"code": problem_code},
+        request=request,
+    )
+    problem_instance = getattr(exc, "instance", None)
+    problem_extensions = getattr(exc, "extensions", {})
     if isinstance(data, dict):
-        data['title'] = problem_title
-        data['status'] = problem_status
-        data['type'] = problem_type
+        data["title"] = problem_title
+        data["status"] = problem_status
+        data["type"] = problem_type
+        if problem_instance:
+            data["instance"] = problem_instance
+        data.update(problem_extensions)
     else:
-        data = dict(errors=response.data, title=problem_title,
-                    status=problem_status, type=problem_type)
+        data = dict(
+            errors=response.data,
+            title=problem_title,
+            status=problem_status,
+            type=problem_type,
+        )
     try:
-        if request.accepted_renderer.format == 'json':
-            response.content_type = 'application/problem+json'
+        if request.accepted_renderer.format == "json":
+            response.content_type = "application/problem+json"
     except AttributeError:
         pass
     response.data = data
@@ -52,27 +64,31 @@ def exception_handler(exc, context):
 
 @register
 class InvalidVersionRequestedException(exceptions.NotAcceptable):
-    default_code = 'invalid_version'
-    default_detail = _('Invalid API version provided.')
+    default_code = "invalid_version"
+    default_detail = _("Invalid API version provided.")
     format_detail = _('Provided version "{request_version}" is invalid.')
     description = _(
-        'Malformed or unsupported version string is provided with the request.')
+        "Malformed or unsupported version string is provided with the request."
+    )
 
     def __init__(self, request_version, detail=None, code=None):
         if detail is None:
             detail = force_str(self.format_detail).format(
-                request_version=request_version)
+                request_version=request_version
+            )
         super().__init__(detail, code)
 
 
 @register
 class DeprecatedVersionUsedException(exceptions.PermissionDenied):
-    default_code = 'deprecated_version'
-    default_detail = _('Deprecated API version provided.')
+    default_code = "deprecated_version"
+    default_detail = _("Deprecated API version provided.")
     format_detail = _(
-        'Minimum version supported is "{min_version}", but the request used "{request_version}"')
+        'Minimum version supported is "{min_version}", but the request used "{request_version}"'
+    )
     description = _(
-        'API only supports versions above the minimum requirement.')
+        "API only supports versions above the minimum requirement."
+    )
 
     def __init__(self, request_version, min_version, detail=None, code=None):
         """Exception thrown when deprecated version of API is used.
@@ -83,5 +99,6 @@ class DeprecatedVersionUsedException(exceptions.PermissionDenied):
         """
         if detail is None:
             detail = force_str(self.format_detail).format(
-                request_version=request_version, min_version=min_version)
+                request_version=request_version, min_version=min_version
+            )
         super().__init__(detail, code)
