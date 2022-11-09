@@ -43,7 +43,7 @@ def exception_handler(exc, context):
         data['status'] = problem_status
         data['type'] = problem_type
         if problem_instance:
-            data['instance'] = problem_instance
+            data['instance'] = request.build_absolute_uri(problem_instance)
         if isinstance(problem_extensions, dict):
             data.update(problem_extensions)
     else:
