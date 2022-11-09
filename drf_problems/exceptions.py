@@ -44,7 +44,8 @@ def exception_handler(exc, context):
         data['type'] = problem_type
         if problem_instance:
             data['instance'] = problem_instance
-        data.update(problem_extensions)
+        if isinstance(problem_extensions, dict):
+            data.update(problem_extensions)
     else:
         data = dict(
             errors=response.data,
